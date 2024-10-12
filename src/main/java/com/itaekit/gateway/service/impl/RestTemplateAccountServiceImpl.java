@@ -83,13 +83,13 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     public UserDto getUserDetailsByUserId(String userId) {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:7070")
-                .path("/api/login")
+                .path("/api/mypage/" + userId)
                 .encode()
                 .build()
                 .toUri();
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<UserDto> responseDto = restTemplate.postForEntity(uri, userId, UserDto.class);
+        ResponseEntity<UserDto> responseDto = restTemplate.getForEntity(uri, UserDto.class);
 
         if (responseDto.getStatusCode().is2xxSuccessful()) {
             return responseDto.getBody();
