@@ -43,16 +43,17 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user1 = User.builder()
-                .username("user")
-                .password(bCryptPasswordEncoder().encode("111"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1);
-    }
+// 임시 테스트용 UserDetails
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user1 = User.builder()
+//                .username("user")
+//                .password(bCryptPasswordEncoder().encode("111"))
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user1);
+//    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){

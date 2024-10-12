@@ -1,16 +1,17 @@
-package com.itaekit.gateway.dto.account.request;
+package com.itaekit.gateway.dto.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class CreateAccountRequestDto {
+public class UserDto {
+    private Long id;
     private String userId;
-    private String email;
     private String password;
+    private String email;
+    private String lastLoginAt;
+    private String status;
 }

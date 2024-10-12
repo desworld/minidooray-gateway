@@ -14,20 +14,20 @@
 <div class="container mt-5 text-center center signup-container">
     <h1 class="mt-5">Sign Up</h1>
     <p class="mt-2">Mini Dooray에 일원이 되어주세요!</p>
-    <form action="/login" method="post" class="mt-3">
+    <form action="/signup" method="post" class="mt-3">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInputText" placeholder="name@example.com">
+            <input type="text" class="form-control" id="floatingInputText" placeholder="name@example.com" name="userId">
             <label for="floatingInputText">아이디를 입력하세요</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+            <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com" name="email">
             <label for="floatingInputEmail">이메일을 입력하세요</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control form-control-sm" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control form-control-sm" id="floatingPassword" placeholder="Password" name="password">
             <label for="floatingPassword">비밀번호를 입력하세요</label>
         </div>
-        <button type="button" class="mt-3 btn btn-primary">Sign up</button>
+        <button type="submit" class="mt-3 btn btn-primary">Sign up</button>
     </form>
 </div>
 </body>

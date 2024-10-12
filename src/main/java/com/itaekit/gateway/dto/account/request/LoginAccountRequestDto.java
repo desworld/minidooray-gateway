@@ -1,14 +1,14 @@
-package com.itaekit.gateway.dto.account.response;
+package com.itaekit.gateway.dto.account.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class CreateAccountResponseDto {
+@AllArgsConstructor
+public class LoginAccountRequestDto {
     private String userId;
 }
