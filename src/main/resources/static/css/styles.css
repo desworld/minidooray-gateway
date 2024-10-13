@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 
-.login-container, .signup-container {
+.login-container, .signup-container, .container {
     width: 500px;
     margin: 0 auto;
 }
