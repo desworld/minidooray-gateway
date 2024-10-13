@@ -13,38 +13,36 @@
 <body>
 <div class="container mt-5 text-center center signup-container">
     <h1 class="mt-5">My Page</h1>
-    <form action="/login" method="post" class="row g-3 mt-3">
+    <form th:action="@{/edit/user}" method="post" class="row g-3 mt-3">
             <div class="col-md-6">
                 <label for="inputUserId" class="form-label">회원 고유번호</label>
-                <input type="text" class="form-control" id="inputUserId" th:value="${user.id}" readonly>
+                <input type="text" class="form-control" id="inputUserId" th:value="${user.id}" name="id" readonly>
             </div>
             <div class="col-md-6">
                 <label for="inputAccount" class="form-label">아이디</label>
-                <input type="text" class="form-control" id="inputAccount" th:value="${user.userId}" readonly>
+                <input type="text" class="form-control" id="inputAccount" th:value="${user.userId}" name="userId" readonly>
             </div>
             <div class="col-12">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" th:value="${user.email}">
+                <input type="email" class="form-control" id="inputEmail" th:value="${user.email}" name="email">
             </div>
             <div class="col-12">
                 <label for="inputPassword" class="form-label">비밀번호</label>
-                <input type="password" class="form-control" id="inputPassword">
+                <input type="password" class="form-control" id="inputPassword" name="password" required>
             </div>
             <div class="col-md-6">
                 <label for="userStatus" class="form-label">계정 상태</label>
-                <input type="text" class="form-control" id="userStatus" th:value="${user.status}" readonly>
+                <input type="text" class="form-control" id="userStatus" th:value="${user.status}" name="status" readonly>
             </div>
             <div class="col-md-6">
                 <label for="inputLastLogin" class="form-label">최근 로그인</label>
-                <input type="text" class="form-control" id="inputLastLogin" th:value="${user.lastLoginAt}" readonly>
+                <input type="text" class="form-control" id="inputLastLogin" th:value="${user.lastLoginAt}" name="lastLoginAt" readonly>
             </div>
             <div class="col-12 buttons">
-                <button type="button" class="mt-3 btn btn-primary">수정</button>
-                <a href="/user/resign">
-                    <button type="button" class="mt-3 ml-5 btn btn-danger">탈퇴</button>
-                </a>
+                <button type="submit" class="mt-3 btn btn-primary">수정</button>
+                <a href="/user/resign" type="button" class="mt-3 ml-5 btn btn-danger">탈퇴</a>
             </div>
-        </form>
+    </form>
 </div>
 </body>
 </html>

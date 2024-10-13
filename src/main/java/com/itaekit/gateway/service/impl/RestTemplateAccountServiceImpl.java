@@ -11,6 +11,7 @@ import com.itaekit.gateway.exception.RegisterFailException;
 import com.itaekit.gateway.exception.UserRequestFailException;
 import com.itaekit.gateway.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,10 +40,10 @@ public class RestTemplateAccountServiceImpl implements AccountService {
 
         RestTemplate restTemplate = new RestTemplate();
         requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
-        ResponseEntity<CreateAccountResponseDto> responseDto = restTemplate.postForEntity(uri, requestDto, CreateAccountResponseDto.class);
+        ResponseEntity<CreateAccountResponseDto> responseEntity = restTemplate.postForEntity(uri, requestDto, CreateAccountResponseDto.class);
 
-        if (responseDto.getStatusCode().is2xxSuccessful()) {
-            return responseDto.getBody();
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return responseEntity.getBody();
         } else {
             throw new RegisterFailException("회원가입에 실패하였습니다.");
         }
@@ -52,12 +53,21 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     public EditAccountResponseDto editUser(EditAccountRequestDto requestDto) {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:7070")
-                .path("/api/account/register")
+                .path("/api/edit/" + requestDto.getUserId())
                 .encode()
                 .build()
                 .toUri();
 
-        return null;
+        RestTemplate restTemplate = new RestTemplate();
+        requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        RequestEntity<EditAccountRequestDto> requestEntity = RequestEntity.put(uri).body(requestDto);
+        ResponseEntity<EditAccountResponseDto> responseEntity = restTemplate.exchange(requestEntity, EditAccountResponseDto.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return responseEntity.getBody();
+        } else {
+            throw new UserRequestFailException("회원 정보 변경에 실패하였습니다.");
+        }
     }
 
     @Override
@@ -70,10 +80,10 @@ public class RestTemplateAccountServiceImpl implements AccountService {
                 .toUri();
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LoginAccountResponseDto> responseDto = restTemplate.postForEntity(uri, request, LoginAccountResponseDto.class);
+        ResponseEntity<LoginAccountResponseDto> responseEntity = restTemplate.postForEntity(uri, request, LoginAccountResponseDto.class);
 
-        if (responseDto.getStatusCode().is2xxSuccessful()) {
-            return responseDto.getBody();
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return responseEntity.getBody();
         } else {
             throw new UserRequestFailException("로그인에 실패하였습니다.");
         }
@@ -89,10 +99,10 @@ public class RestTemplateAccountServiceImpl implements AccountService {
                 .toUri();
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<UserDto> responseDto = restTemplate.getForEntity(uri, UserDto.class);
+        ResponseEntity<UserDto> responseEntity = restTemplate.getForEntity(uri, UserDto.class);
 
-        if (responseDto.getStatusCode().is2xxSuccessful()) {
-            return responseDto.getBody();
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return responseEntity.getBody();
         } else {
             throw new UserRequestFailException("회원 정보 조회에 실패하였습니다.");
         }

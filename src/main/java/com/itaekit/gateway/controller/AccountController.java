@@ -1,6 +1,8 @@
 package com.itaekit.gateway.controller;
 
 import com.itaekit.gateway.dto.account.request.CreateAccountRequestDto;
+import com.itaekit.gateway.dto.account.request.EditAccountRequestDto;
+import com.itaekit.gateway.dto.account.response.EditAccountResponseDto;
 import com.itaekit.gateway.dto.user.UserDto;
 import com.itaekit.gateway.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +46,10 @@ public class AccountController {
     }
 
     // 회원 정보 변경
-    @PostMapping("/user/edit")
-    public String editUser(@PathVariable String userId) {
-        return "redirect:/user/" + userId;
+    @PostMapping("/edit/user")
+    public String editUser(EditAccountRequestDto requestDto) {
+        EditAccountResponseDto responseDto = accountService.editUser(requestDto);
+        return "redirect:/";
     }
 
     // 회원 탈퇴
