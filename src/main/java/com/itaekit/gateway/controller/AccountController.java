@@ -53,8 +53,9 @@ public class AccountController {
     }
 
     // 회원 탈퇴
-    @GetMapping("/user/resign")
-    public String removeUser(@RequestParam(name = "userId") String userId) {
+    @GetMapping("/user/resign/{userId}")
+    public String removeUser(@PathVariable String userId) {
+        accountService.removeUser(userId);
         return "redirect:/";
     }
 

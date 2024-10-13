@@ -13,5 +13,5 @@ public interface AccountService {
     EditAccountResponseDto editUser(EditAccountRequestDto requestDto);
     LoginAccountResponseDto findUserByUserId(LoginAccountRequestDto userId);
     UserDto getUserDetailsByUserId(String userId);
-//    int removeUser(String userId);
+    void removeUser(String userId);
 }

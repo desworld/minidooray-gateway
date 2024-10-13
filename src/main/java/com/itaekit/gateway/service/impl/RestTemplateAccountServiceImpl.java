@@ -11,6 +11,7 @@ import com.itaekit.gateway.exception.RegisterFailException;
 import com.itaekit.gateway.exception.UserRequestFailException;
 import com.itaekit.gateway.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -105,6 +106,24 @@ public class RestTemplateAccountServiceImpl implements AccountService {
             return responseEntity.getBody();
         } else {
             throw new UserRequestFailException("회원 정보 조회에 실패하였습니다.");
+        }
+    }
+
+    @Override
+    public void removeUser(String userId) {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:7070")
+                .path("/api/resign/" + userId)
+                .encode()
+                .build()
+                .toUri();
+
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<Void> requestEntity = RequestEntity.delete(uri).build();
+        ResponseEntity<HttpStatus> responseEntity = restTemplate.exchange(requestEntity, HttpStatus.class);
+
+        if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+            throw new UserRequestFailException("회원 탈퇴에 실패하였습니다.");
         }
     }
 }

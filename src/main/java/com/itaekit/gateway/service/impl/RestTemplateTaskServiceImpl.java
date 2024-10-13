@@ -6,8 +6,11 @@ import com.itaekit.gateway.dto.account.response.CreateAccountResponseDto;
 import com.itaekit.gateway.dto.account.response.EditAccountResponseDto;
 import com.itaekit.gateway.dto.project.request.CreateProjectRequestDto;
 import com.itaekit.gateway.dto.project.response.CreateProjectResponseDto;
+import com.itaekit.gateway.dto.project.response.SearchProjectResponseDto;
+import com.itaekit.gateway.exception.FindFailException;
 import com.itaekit.gateway.exception.RegisterFailException;
 import com.itaekit.gateway.service.TaskService;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 public class RestTemplateTaskServiceImpl implements TaskService {
@@ -38,5 +42,24 @@ public class RestTemplateTaskServiceImpl implements TaskService {
         }
     }
 
+    @Override
+    public List<SearchProjectResponseDto> findAllProject(Long userId) {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("/api/projects/" + userId)
+                .encode()
+                .build()
+                .toUri();
 
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<Void> requestEntity = RequestEntity.get(uri).build();
+        ResponseEntity<List<SearchProjectResponseDto>> responseEntity = restTemplate.exchange(requestEntity, new ParameterizedTypeReference<List<SearchProjectResponseDto>>() {});
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            return responseEntity.getBody();
+        } else {
+            throw new FindFailException("프로젝트 조회에 실패하였습니다.");
+        }
+
+    }
 }
