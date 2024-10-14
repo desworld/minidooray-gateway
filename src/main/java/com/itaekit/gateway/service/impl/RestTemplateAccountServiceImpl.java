@@ -33,7 +33,7 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     @Override
     public CreateAccountResponseDto registerUser(CreateAccountRequestDto requestDto) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:7070")
+                .fromUriString("http://localhost:9091")
                 .path("/api/account/register")
                 .encode()
                 .build()
@@ -53,7 +53,7 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     @Override
     public EditAccountResponseDto editUser(EditAccountRequestDto requestDto) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:7070")
+                .fromUriString("http://localhost:9091")
                 .path("/api/edit/" + requestDto.getUserId())
                 .encode()
                 .build()
@@ -74,7 +74,7 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     @Override
     public LoginAccountResponseDto findUserByUserId(LoginAccountRequestDto request) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:7070")
+                .fromUriString("http://localhost:9091")
                 .path("/api/login")
                 .encode()
                 .build()
@@ -93,7 +93,7 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     @Override
     public UserDto getUserDetailsByUserId(String userId) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:7070")
+                .fromUriString("http://localhost:9091")
                 .path("/api/mypage/" + userId)
                 .encode()
                 .build()
@@ -112,7 +112,7 @@ public class RestTemplateAccountServiceImpl implements AccountService {
     @Override
     public void removeUser(String userId) {
         URI uri = UriComponentsBuilder
-                .fromUriString("http://localhost:7070")
+                .fromUriString("http://localhost:9091")
                 .path("/api/resign/" + userId)
                 .encode()
                 .build()
